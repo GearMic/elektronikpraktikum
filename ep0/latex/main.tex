@@ -1,0 +1,132 @@
+%% packages
+\documentclass{article}
+\usepackage[a4paper, left=1.5cm, right=1.5cm, top=3.5cm]{geometry}
+\usepackage[ngerman]{babel}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{amssymb}
+\usepackage{titlesec}
+\usepackage{wrapfig}
+\usepackage{blindtext}
+\usepackage{lipsum}
+\usepackage{caption}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{nopageno}
+\usepackage{authblk}
+\usepackage{amsmath} % tons of math stuff
+\usepackage{mathtools} % e.g. alignment within matrix
+%\usepackage{bm} % provides shorthand for bold in math mode
+\usepackage{dsfont} % \mathds makes double stroke digits
+\usepackage{esdiff} % provides derivative commands
+%\usepackage[ISO]{diffcoeff}
+\usepackage{xcolor}
+\usepackage{csquotes} % e.g. provides \enquote
+%\fancyhf[]{}
+
+%% custom stuff
+% change subsection numbering to capital letters
+\newcommand{\subsectionAlph}{ \renewcommand{\thesubsection}{\arabic{section}.\Alph{subsection}} }
+% change subsection numbering to lowercase letters
+\newcommand{\subsectionalph}{ \renewcommand{\thesubsection}{\arabic{section}.\alph{subsection}} }
+
+% own fig. that works with multicols
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+\newcommand*{\inputPath}{./plot} % prepend this command to the argument of all input commands
+\graphicspath{ {./plot/} }
+
+%% preparation
+\begin{titlepage}
+    \title{Elektronikpraktikum: Versuch 0}
+    \author{Michael Vogt\thanks{s65mvogt@uni-bonn.de}}
+    \author{Marc Hauer\thanks{s??mhaue@uni-bonn.de}}
+    %\date{\today}
+\end{titlepage}
+
+
+%% document
+\begin{document}
+
+\pagenumbering{gobble}
+\maketitle
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+
+\pagestyle{fancy}
+\fancyhead[R]{\thepage}
+\fancyhead[L]{\leftmark}
+
+%\begin{multicols}{2}
+
+Versuch 0 dient zum kennenlernen der im Elektronikpraktikum eingesetzten Gerätschaften und führt in ihre Eigenheiten ein.
+Im Zuge dessen betrachten wir mit dem Oszilloskop verschiedene durch einen Funktionsgenerator produzierte Signalformen,
+und untersuchen Anstiegszeit und Grenzfrequenz des Generators
+
+\section{Theorie}
+\subsection{Charakterisierung von Wechselspannungen}
+Bei Wechselspannungssignalen liegt keine schlicht konstante, sondern eine periodisch variierende Spannung vor.
+Daher gibt es verschiedene Möglichkeiten, das Signal durch einen Wert zu charakterisieren.
+Diese Spannungsangaben werden durch einen Index am Formelzeichen $U_X$ oder an der Einheit Volt $V_X$ gekennzeichnet.
+\begin{description} 
+  \item[Spitze-Spitze] $U_\mathrm{pp}$ (peak-to-peak) entspricht der Differenz zwischen
+  dem höchsten und niedrigsten auftretenden Spannungswert.
+  \item[Scheitelwert / Spitzenwert] $U_\mathrm{p}$ gibt den maximalen auftretenden Spannungswert an. Bei asymmetrischen Signalen
+  ist damit meist, aber nicht immer, $U_\mathrm{p} = \max{\lvert U(t) \rvert}$ gemeint.
+  \item[Effektivwert] $U_\mathrm{eff}$ entspricht der Gleichspannung, welche die gleiche mittlere Leistung über einen Widerstand
+  $R$ verrichtet, wie das eigentliche Signal. Mit $P=U^2/R$ muss also $U_\mathrm{eff} = \sqrt{\langle U^2 \rangle_t}$.
+  $U_\mathrm{eff}$ ist also die \textit{root mean square}-Spannung und wird auch als $U_\mathrm{RMS}$ geschrieben.
+\end{description} 
+
+\subsection{Funktionsgenerator}
+Um Wechselspannungen verschiedener Formen zu produzieren, verwenden wir den Funktionsgenerator HM 8131-2,
+welcher einen Ausgangswiderstand von $50\Omega$ hat. Es ist zu beachten, dass das Gerät eine endliche
+Frequenzbandbreite hat, welche sich hier durch einen RC-Tiefpass beschreiben lässt, dessen Grenzfrequenz der
+Bandbreite entspricht:
+\begin{equation}
+  B = f_\text{grenz} = 1/(2\pi RC) = 1 / (2\pi \tau) \quad \text{mit Zeitkonstante } \tau = RC
+\end{equation}
+Bei zeitlicher Darstellung des Signals zeigt sich diese Frequenzbegrenzung in Form einer endlichen Anstiegszeit $\Delta t$ bei abrupten
+Spannungsänderungen (beispielsweise ein perfektes Rechtecksignal würde unendlich hohe Frequenzen benötigen). $\Delta t$ wird definiert
+als Zeitdifferenz zwischen erreichen von $10 \%$ und $ 90\%$ der Maximalspannung. Es gilt näherungsweise
+\begin{equation}
+  B \Delta t = 0.35
+\end{equation}
+
+\subsection{Oszilloskop}
+Das Oszilloskop ist ein wichtiges Instrument zur Messung periodischer Signale. Bei einem analogen Oszilloskop
+(wie dem im Versuch verwendeten HAMEG HM604)
+besteht die Anzeige aus einer Elektronenstrahlröhre mit Leuchtschirm. Der Elektronenstrahl kann durch zwei Plattenkondensatoren,
+deren Felder in $x$- (horizontal) bzw. $y$-Richtung (vertikal) zeigen, gesteuert werden. Meist wird an die x-Platten
+eine zeitlich gleichförmig steigende Spannung, und an die y-Platten das darzustellende Signal, angelegt. So entsteht als
+Oszillogramm ein \enquote{Plot} des Signals gegen die Zeit.
+
+Die steigende x-Spannung wird durch Integration einer konstanten Spannung
+und Rücksetzung auf einen Ausgangswert durch ein Triggersignal erreicht werden. Dieser Trigger kann von dem y-Signal abhängig
+gemacht werden, um die Periodizität von x- und y- Signal aneinander anzupasssen. Nur so entsteht ein
+(scheinbar, bei Betrachtung mit bloßem Auge) zeitlich unveränderliches Oszillogramm.
+
+Das Oszilloskop hat eine Eingansimpedanz, die durch einen Widerstand von $1\mathrm{\Omega}$ in Parallelschaltung zu
+einer Kapazität von ca. $30\mathrm{pF}$ entsteht. Die Eingangsimpedanz kann häufig als unendlich genähert werden.
+Wie auch der Funktionsgenerator, hat das Oszilloskop ebenfalls eine endliche Bandbreite B. Bei Messung der Anstiegszeit
+wird somit ein höherer Wert gemessen, nach der Formel
+\begin{equation}
+  \Delta t^2_\text{gemessen} = \Delta t^2_\text{Signal} + \Delta t^2_\text{Oszi} 
+\end{equation}
+
+
+\section{Voraufgaben}
+\begingroup
+%\refstepcounter{subsection}
+\subsectionAlph
+\subsection{}
+\endgroup
+
+\section{Durchführung}
+\subsection{test}
+
+
+%\end{multicols}
+\end{document}
