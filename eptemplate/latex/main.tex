@@ -22,9 +22,28 @@
 %\usepackage[ISO]{diffcoeff}
 \usepackage{xcolor}
 \usepackage{csquotes} % e.g. provides \enquote
+\usepackage{siunitx} % units
 %\fancyhf[]{}
 
 %% custom stuff
+% own units
+\DeclareSIUnit \VSS {\ensuremath{V_\mathrm{SS}}}
+\DeclareSIUnit \VS {\ensuremath{V_\mathrm{S}}}
+\DeclareSIUnit \Veff {\ensuremath{V_\mathrm{eff}}}
+\DeclareSIUnit \Vpp {\ensuremath{V_\mathrm{pp}}}
+\DeclareSIUnit \Vp {\ensuremath{V_\mathrm{p}}}
+\DeclareSIUnit \VRMS {\ensuremath{V_\mathrm{RMS}}}
+\DeclareSIUnit \ASS {\ensuremath{A_\mathrm{SS}}}
+\DeclareSIUnit \AS {\ensuremath{A_\mathrm{S}}}
+\DeclareSIUnit \Aeff {\ensuremath{A_\mathrm{eff}}}
+\DeclareSIUnit \App {\ensuremath{A_\mathrm{pp}}}
+\DeclareSIUnit \Ap {\ensuremath{A_\mathrm{p}}}
+\DeclareSIUnit \ARMS {\ensuremath{A_\mathrm{RMS}}}
+
+% change subsection numbering to capital letters
+\newcommand{\subsectionAlph}{ \renewcommand{\thesubsection}{\arabic{section}.\Alph{subsection}} }
+% change subsection numbering to lowercase letters
+\newcommand{\subsectionalph}{ \renewcommand{\thesubsection}{\arabic{section}.\alph{subsection}} }
 % own fig. that works with multicols
 \newenvironment{Figure}
   {\par\medskip\noindent\minipage{\linewidth}}
@@ -55,6 +74,17 @@
 \fancyhead[L]{\leftmark}
 
 \begin{multicols}{2}
+
+\section{Voraufgaben}
+\begingroup
+\subsectionAlph
+
+\subsection{}
+\subsection{}
+\subsection{}
+
+\endgroup
+
 
 
 

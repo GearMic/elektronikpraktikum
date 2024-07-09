@@ -22,9 +22,24 @@
 %\usepackage[ISO]{diffcoeff}
 \usepackage{xcolor}
 \usepackage{csquotes} % e.g. provides \enquote
+\usepackage{siunitx} % units
 %\fancyhf[]{}
 
 %% custom stuff
+% own units
+\DeclareSIUnit \VSS {\ensuremath{V_\mathrm{SS}}}
+\DeclareSIUnit \VS {\ensuremath{V_\mathrm{S}}}
+\DeclareSIUnit \Veff {\ensuremath{V_\mathrm{eff}}}
+\DeclareSIUnit \Vpp {\ensuremath{V_\mathrm{pp}}}
+\DeclareSIUnit \Vp {\ensuremath{V_\mathrm{p}}}
+\DeclareSIUnit \VRMS {\ensuremath{V_\mathrm{RMS}}}
+\DeclareSIUnit \ASS {\ensuremath{A_\mathrm{SS}}}
+\DeclareSIUnit \AS {\ensuremath{A_\mathrm{S}}}
+\DeclareSIUnit \Aeff {\ensuremath{A_\mathrm{eff}}}
+\DeclareSIUnit \App {\ensuremath{A_\mathrm{pp}}}
+\DeclareSIUnit \Ap {\ensuremath{A_\mathrm{p}}}
+\DeclareSIUnit \ARMS {\ensuremath{A_\mathrm{RMS}}}
+
 % change subsection numbering to capital letters
 \newcommand{\subsectionAlph}{ \renewcommand{\thesubsection}{\arabic{section}.\Alph{subsection}} }
 % change subsection numbering to lowercase letters
@@ -92,7 +107,7 @@ Bei zeitlicher Darstellung des Signals zeigt sich diese Frequenzbegrenzung in Fo
 Spannungsänderungen (beispielsweise ein perfektes Rechtecksignal würde unendlich hohe Frequenzen benötigen). $\Delta t$ wird definiert
 als Zeitdifferenz zwischen erreichen von $10 \%$ und $ 90\%$ der Maximalspannung. Es gilt näherungsweise
 \begin{equation}
-  B \Delta t = 0.35
+  B \Delta t = 0.35 \label{eq:bdeltat}
 \end{equation}
 
 \subsection{Oszilloskop}
@@ -122,8 +137,38 @@ wird somit ein höherer Wert gemessen, nach der Formel
 %\refstepcounter{subsection}
 \subsectionAlph
 \subsection{}
-\endgroup
+Für eine Sinusförmige Spannung der Frequenz $\omega$ und Amplitude $U_0$ gilt $U_\text{SS} = 2U_0$ und $U_\text{S} = U_0$.
+Und für den Effektivwert
+\begin{equation}
+  U_\text{eff} = \sqrt{\langle U^2 \rangle} = U_0 \sqrt{\frac{w}{2\pi} \int_0^{2\pi/\omega} dt \sin^2(\omega t)} = U_0/\sqrt{2}
+\end{equation}
 
+\subsection{}
+Für ein symmetrisches Rechtecksignal mit $U_\text{S} = 10\text{V}$ gilt $U^2 = U_\text{S}^2 = \text{const.}$
+Damit ist $U_\text{eff} = \sqrt{\langle U^2 \rangle} = \lvert U_\text{S} \rvert = 10\text{V}$
+
+\subsection{}
+Es gilt $U_n = U_0 \frac{R_n}{R_n+R_i}$ mit $n=1,\enspace 2$ und damit
+\begin{align}
+  \frac{U_2 - U_1}{I_1 - I_2} &= \frac{ \frac{R_2}{R_2+R_i} - \frac{R_1}{R_1+R_i}}{ \frac{1}{R_1+R_i} - \frac{1}{R_2+R_i} } \nonumber \\ 
+  &= \frac{ R_2(R_1+R_i) - R_1(R_2+R_i) }{ (R_2+R_i) - (R_1+R_i) } = \frac{R_i(R_2-R_1)}{R_2-R_1} = R_i
+\end{align}
+Der Signalgenerator liefert $20\text{V}_\text{SS}$ ohne Last, also mit $I_1$=0, und $\SI{5}{\VSS}$ mit $50\mathrm{\Omega}$ Last,
+also $I = \frac{U_2}{R_2} = 0.2A_\text{SS}$. damit gilt $R_i = \frac{U_2 - U_1}{I_1 - I_2} = 50\mathrm{\Omega}$.
+
+\subsection{}
+Wir machen uns mit den Bedienungselementen des Oszilloskops vertraut.
+
+\subsection{}
+Wir leiten (\ref{eq:bdeltat}) her. Für die exponentiell auf Spannung $U_0$ ansteigende Flanke gilt
+\begin{align}
+  U(t) &= U_0 - \exp(-\frac{t}{\tau}) \\
+  \implies t(U) &= -\tau \ln(U_0 - U) \\
+  \implies \Delta t &= t(0.9 U_0) - t(0.1 U_0) = \tau \ln(\frac{U_0-0.1U_0}{U_0-0.9U_0}) = \tau \ln(9) \\
+  \implies B \Delta t &= \frac{1}{2\pi\tau} \cdot \tau \cdot \ln(9) \approx 0.35
+\end{align}
+
+\endgroup
 \section{Durchführung}
 \subsection{test}
 
