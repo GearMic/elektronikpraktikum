@@ -1,0 +1,20 @@
+## Core latex/pdflatex auxiliary files:
+ep*/latex/*.aux
+ep*/latex/*.lof
+ep*/latex/*.log
+ep*/latex/*.lot
+ep*/latex/*.fls
+ep*/latex/*.out
+ep*/latex/*.toc
+ep*/latex/*.fmt
+ep*/latex/*.fot
+ep*/latex/*.cb
+ep*/latex/*.cb2
+
+## Build tool auxiliary files:
+ep*/latex/*.fdb_latexmk
+ep*/latex/*.synctex
+ep*/latex/*.synctex(busy)
+ep*/latex/*.synctex.gz
+ep*/latex/*.synctex.gz(busy)
+ep*/latex/*.pdfsync
