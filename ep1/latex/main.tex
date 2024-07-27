@@ -126,11 +126,11 @@ Die Lösung, mit zusätzlicher Betrachtung der Zeitabhängigkeit, ist für die S
 Es gibt also eine hinlaufende und eine rücklaufende, reflektierte Welle, und die Gesamtspannung entsteht aus Addition dieser Wellen.
 Für den Strom ergibt sich eine ähnliche Gleichung, wobei jedoch die rücklaufende Welle einen im Verhältnis zu $U_{\mr r0}$ negativen Beitrag hat.
 
-Das Verhältnis $\frac{U_\mr h}{I_\mr h}$ ist der
-\textit{Wellenwiderstand}
+Das Verhältnis $\frac{U_\mr h}{I_\mr h}$ ist der \textit{Wellenwiderstand}
 \begin{equation}
   Z = \frac{U_\mr h}{I_\mr h} = \sqrt\frac{R' + i\omega L'}{G' + i\omega C'}
 \end{equation}
+Dies ist also eine von der Kabellänge unabhängige Größe.
 Die Amplitude der rücklaufenden Welle hängt ab vom Abschlusswiderstand
 $R_\mr A$, mit dem das Kabelende ($x = l$) belastet wird. Es gilt für den \textit{Reflektionsfaktor} $r = U_{\mr r0} / U_{\mr h0}$
 \begin{equation}
@@ -153,9 +153,76 @@ also gleicht die Geschwindigkeit der einer Wellenausbreitung im Dielektrikum zwi
 \subsectionAlph
 
 \subsection{}
+Die Verzögerungszeit im Kabel ist $t_\mr{delay} = \frac{l}{v_\mr{ph}} = l \sqrt{L'C'} = lc_0\sqrt{\epsilon_r\mu_r}$.
+Sie hängt also vom Dielektrikum und von der Länge des Kabels ab. Zum Erhöhen von $t_\mr{delay}$ kann man das Kabel verlängern,
+oder ein Dielektrikum mit größerem $\epsilon_r$ bzw. $\mu_r$ wählen.
+
 \subsection{}
+Da $Z=\sqrt\frac{L'}{C'}$ hat eine Verlängerung des Kabels keinen Einfluss auf den Wellenwiderstand.
+Erhöhung von $\mu_r$ bzw. $L'$ erhöht den Wellenwiderstand, erhöhung von $\epsilon_r$ bzw. $C'$ verringert ihn.
+
 \subsection{}
+Die Leitung ist reflektionsfrei abgeschlossen und wirkt dadurch für die Signalquelle wie ein unendlich langes Kabel
+mit Widerstand $Z$. Der Eingangswiderstand ist also unabhängig von der Länge. \question{Was ist ein Eingangswiderstand?}
+
+\subsection{}
+Ein Leiter mit $\frac{R_\mr a}{R_\mr i} = 2.3$ und $\epsilon_r = \mu_r = 1.5$ hat eine Phasengeschwindigkeit von
+$v_\mr{ph} = \frac{c_0}{\sqrt{\epsilon_r \mu_r}} = \frac{c_0}{1.5} = \SI{2e8}{\m\per\s}$. Im verlustfreien Idealfall gilt
+für den Wellenwiderstand $Z=\frac{L'}{C'} = \sqrt{\frac{\mu_r \mu_0}{\epsilon_r \epsilon_0}} \frac{\ln(R_\mr a / R_\mr i)}{2\pi} = 120\pi \unit{\ohm} \frac{\ln{2.3}}{2\pi} \approx 49.97\unit{\ohm}$.
+Die Verzögerungszeit pro Länge ist $\frac{t_\mr{delay}}{l} = 1/v_\mr{ph} = \SI{5}{\ns \per \m}$.
 
 \endgroup
 
+
+\section{Durchführung}
+Zur Untersuchung des Verhaltens der Koaxialkabel sind kurze Spannungsimpulse nützlich. Diese erhalten wir durch differenzieren
+eines Rechtecksignals mithilfe eines RC-Hochpassglieds. Zunächst wird das Verhalten dieser Impulse
+mit der Schaltung in Abb. \ref{fig:aufgabe1} untersucht.
+\question{Hat der CH1-Eingang zwei Kontakte? Wird der zweite Kontakt geerdet?}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.4\textwidth]{aufgabe1}
+  \caption{Aufbau für Versuchsaufgabe 1}
+  \label{fig:aufgabe1}
+\end{figure}
+
+Das Oszi wird extern getriggert durch das dafür vorgesehene Signal des Signalgenerators. Wir beobachten die resultierende
+Signalform bei einer $\SI{200}{\kilo\hertz}$-Rechteckschwingung. Anschließend wiederholen wir das gleiche mit einem $\SI{2.2}{\kilo\ohm}$-
+Abschlusswiderstand am RC-Glied. \question{wo genau ist der Abschlusswiderstand?}
+
+Wir wollen die Impulsform in einem (effektiv) an beiden Enden offenen Kabel untersuchen.
+Dazu schließen wir an das Differenzierglied zwei $\SI{6}{\meter}$-Koaxkabel (auf Kabelrollen) hintereinander an.
+Diese agieren effektiv wie $\SI{12}{\m}$ langes Kabel, bei dem in der Mitte das Signal abgegriffen werden kann (Abb. \ref{fig:aufgabe2}).
+Am anderen Kanal des Oszillographen wird das Signal vor erreichen des Kabels abgegriffen. Damit die Eingangsseite des Kabels
+\enquote{offen} ist, wird das Signal über einen hohen (Im Vergleich zum Wellenwiderstand des Kabels) Widerstand geleitet.
+Wir verwenden ein $\SI{100}{\kilo\hertz}$-Rechtecksignal.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.4\textwidth]{aufgabe2}
+  \caption{Aufbau für Versuchsaufgabe 2}
+  \label{fig:aufgabe2}
+\end{figure}
+
+Als nächstes Betrachten wir den Effekt verschiedener Abschlusswiderstände und Verzögerungszeiten mithilfe der Schaltung in Abb. \ref{fig:aufgabe3}.
+Wir betrachten das Signal mit / ohne Abschlusswiderstand ($\SI{50}{\ohm}$) und mit offenem bzw. kurzgeschlossenem Verzögerungskabel (oben rechts).
+Wir untersuchen die Unterschiede bei leichter Variation der Frequenz.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.4\textwidth]{aufgabe3}
+  \caption{Aufbau für Versuchsaufgabe 3}
+  \label{fig:aufgabe3}
+\end{figure}
+
+Zuletzt entfernen wir das Differenzierglied sowie den Anpasswiderstand \question{welcher ist das?}, um den Effekt eines Kabels auf
+das Rechtecksignal zu betrachten. Zur Anpassung des Eingangswiderstands \todo{falsches Wort?} wird ein $\SI{2450}{\ohm}$-Widerstand vorgeschaltet.
+Die Verzögerungszeit durch ein Kabel kann ausgenutzt werden, um die Länge des Rechteckpulses zu begrenzen.
+Wir betrachten das Oszillogramm mit offenem bzw. kurzgeschlossenem Verzögerungskabel \todo{stimmt das so? Ist das Verzögerungskabel das Klippkabel?}.
+Wir variieren erneut die Frequenz und betrachten die Dämpfung des Signals. Wir ermitteln die spezifische Dämpfung, also
+den Betrag der Dämpfung (in \unit{\decibel}) pro Kabellänge, für das verwendete Klippkabel.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.4\textwidth]{aufgabe4}
+  \caption{Aufbau für Versuchsaufgabe 4}
+  \label{fig:aufgabe4}
+\end{figure}
 \end{document}
