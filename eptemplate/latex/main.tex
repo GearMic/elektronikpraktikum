@@ -18,12 +18,14 @@
 \usepackage{mathtools} % e.g. alignment within matrix
 %\usepackage{bm} % provides shorthand for bold in math mode
 \usepackage{dsfont} % \mathds makes double stroke digits
-\usepackage{esdiff} % provides derivative commands
+\usepackage{esdiff} % provides \diff
 %\usepackage[ISO]{diffcoeff}
 \usepackage{xcolor}
 \usepackage{csquotes} % e.g. provides \enquote
 \usepackage{siunitx} % units
+\usepackage{xcolor} % colored text
 %\fancyhf[]{}
+
 
 %% custom stuff
 % own units
@@ -49,13 +51,23 @@
   {\par\medskip\noindent\minipage{\linewidth}}
   {\endminipage\par\medskip}
 \newcommand*{\inputPath}{./plot} % prepend this command to the argument of all input commands
-\graphicspath{ {./plot/} }
+\graphicspath{ {./figure/} }
+
+
+% own commands
+% \newcommand{\rarr}{$\to\,$} %A$\,\to\,$B
+\newcommand{\defc}{black}
+\newcommand{\colorT}[2][blue]{\color{#1}{#2}\color{\defc}}
+\newcommand{\redq}{\color{red}(?)\color{\defc}}
+\newcommand{\question}[1]{\colorT[purple]{\textbf{(#1)}}}
+\newcommand{\todo}[1]{\colorT[red]{\textbf{(#1)}}}
 
 %% preparation
 \begin{titlepage}
     \title{Elektronikpraktikum: Versuch X}
-    \author{Michael Vogt\thanks{s65mvogt@uni-bonn.de}}
-    \author{Marc Hauer\thanks{s??mhaue@uni-bonn.de}}
+    \author[1]{Marc Hauer\thanks{s??mhaue@uni-bonn.de}}
+    \author[1]{Michael Vogt\thanks{s65mvogt@uni-bonn.de}}
+    \affil[1]{Uni Bonn}
     %\date{\today}
 \end{titlepage}
 
