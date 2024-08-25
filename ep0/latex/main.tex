@@ -66,7 +66,7 @@
 %% preparation
 \begin{titlepage}
     \title{Elektronikpraktikum: Versuch 0 \\ Einführungsversuch}
-    \author[1]{Marc Hauer\thanks{s??mhaue@uni-bonn.de}}
+    \author[1]{Marc Hauer\thanks{s65mhaue@uni-bonn.de}}
     \author[1]{Michael Vogt\thanks{s65mvogt@uni-bonn.de}}
     \affil[1]{Uni Bonn}
     %\date{\today}
@@ -116,8 +116,8 @@ Bandbreite entspricht:
   B = f_\text{grenz} = 1/(2\pi RC) = 1 / (2\pi \tau) \quad \text{mit Zeitkonstante } \tau = RC
 \end{equation}
 Bei zeitlicher Darstellung des Signals zeigt sich diese Frequenzbegrenzung in Form einer endlichen Anstiegszeit $\Delta t$ bei abrupten
-Spannungsänderungen (beispielsweise ein perfektes Rechtecksignal würde unendlich hohe Frequenzen benötigen). $\Delta t$ wird definiert
-als Zeitdifferenz zwischen erreichen von $10 \%$ und $ 90\%$ der Maximalspannung. Es gilt näherungsweise
+Spannungsänderungen (beispielsweise würde ein perfektes Rechtecksignal unendlich hohe Frequenzen benötigen). $\Delta t$ wird definiert
+als Zeitdifferenz zwischen dem Erreichen von $10 \%$ und $ 90\%$ der Maximalspannung. Es gilt näherungsweise
 \begin{equation}
   B \Delta t = 0.35 \label{eq:bdeltat}
 \end{equation}
@@ -127,11 +127,11 @@ Das Oszilloskop ist ein wichtiges Instrument zur Messung periodischer Signale. B
 (wie dem im Versuch verwendeten HAMEG HM604)
 besteht die Anzeige aus einer Elektronenstrahlröhre mit Leuchtschirm. Der Elektronenstrahl kann durch zwei Plattenkondensatoren,
 deren Felder in $x$- (horizontal) bzw. $y$-Richtung (vertikal) zeigen, gesteuert werden. Meist wird an die x-Platten
-eine zeitlich gleichförmig steigende Spannung, und an die y-Platten das darzustellende Signal, angelegt. So entsteht als
+eine zeitlich gleichförmig steigende Spannung, und an die y-Platten das darzustellende Signal angelegt. So entsteht als
 Oszillogramm ein \enquote{Plot} des Signals gegen die Zeit.
 
 Die steigende x-Spannung wird durch Integration einer konstanten Spannung
-und Rücksetzung auf einen Ausgangswert durch ein Triggersignal erreicht werden. Dieser Trigger kann von dem y-Signal abhängig
+und Rücksetzung auf einen Ausgangswert durch ein Triggersignal erreicht. Dieser Trigger kann von dem y-Signal abhängig
 gemacht werden, um die Periodizität von x- und y- Signal aneinander anzupasssen. Nur so entsteht ein
 (scheinbar, bei Betrachtung mit bloßem Auge) zeitlich unveränderliches Oszillogramm.
 
@@ -165,20 +165,27 @@ Es gilt $U_n = U_0 \frac{R_n}{R_n+R_i}$ mit $n=1,\enspace 2$ und damit
   \frac{U_2 - U_1}{I_1 - I_2} &= \frac{ \frac{R_2}{R_2+R_i} - \frac{R_1}{R_1+R_i}}{ \frac{1}{R_1+R_i} - \frac{1}{R_2+R_i} } \nonumber \\ 
   &= \frac{ R_2(R_1+R_i) - R_1(R_2+R_i) }{ (R_2+R_i) - (R_1+R_i) } = \frac{R_i(R_2-R_1)}{R_2-R_1} = R_i
 \end{align}
-Der Signalgenerator liefert $20\text{V}_\text{SS}$ ohne Last, also mit $I_1$=0, und $\SI{5}{\VSS}$ mit $50\mathrm{\Omega}$ Last,
-also $I = \frac{U_2}{R_2} = 0.2A_\text{SS}$. damit gilt $R_i = \frac{U_2 - U_1}{I_1 - I_2} = 50\mathrm{\Omega}$.
+Der Signalgenerator liefert $20\text{V}_\text{SS}$ ohne Last, also mit $I_1$=0, und $\SI{10}{\VSS}$ mit $50\mathrm{\Omega}$ Last,
+also $I_2 = \frac{U_2}{R_2} = 0.2A_\text{SS}$. damit gilt $R_i = \frac{U_2 - U_1}{I_1 - I_2} = 50\mathrm{\Omega}$.
 
 \subsection{}
 Wir machen uns mit den Bedienungselementen des Oszilloskops vertraut.
 
 \subsection{}
 Wir leiten (\ref{eq:bdeltat}) her. Für die exponentiell auf Spannung $U_0$ ansteigende Flanke gilt
+%\begin{align*}
+%  U(t) &= U_0 - \exp(-\frac{t}{\tau}) \\
+%  \implies t(U) &= -\tau \ln(U_0 - U) \\
+%  \implies \Delta t &= t(0.9 U_0) - t(0.1 U_0) = \tau \ln(\frac{U_0-0.1U_0}{U_0-0.9U_0}) = \tau \ln(9) \\
+%  \implies B \Delta t &= \frac{1}{2\pi\tau} \cdot \tau \cdot \ln(9) \approx 0.35
+%\end{align*}
 \begin{align*}
-  U(t) &= U_0 - \exp(-\frac{t}{\tau}) \\
-  \implies t(U) &= -\tau \ln(U_0 - U) \\
-  \implies \Delta t &= t(0.9 U_0) - t(0.1 U_0) = \tau \ln(\frac{U_0-0.1U_0}{U_0-0.9U_0}) = \tau \ln(9) \\
+  U(t) &= U_0 \left(1 - \exp(-\frac{t}{\tau})\right) \\
+  \implies t(U) &= -\tau \ln\left(1 - \frac{U}{U_0}\right) = -\tau \ln\left(\frac{U_0-U}{U_0}\right) \\
+  \implies \Delta t &= t(0.9 U_0) - t(0.1 U_0) = \tau \ln\left(\frac{U_0-0.1U_0}{U_0-0.9U_0}\right) = \tau \ln(9) \\
   \implies B \Delta t &= \frac{1}{2\pi\tau} \cdot \tau \cdot \ln(9) \approx 0.35
 \end{align*}
+
 
 \endgroup
 \section{Durchführung}
