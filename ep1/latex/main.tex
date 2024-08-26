@@ -92,22 +92,25 @@ Es sollen die Eigenschaften von Koaxialkabeln und die wellenartige Ausbreitung v
 \section{Theorie}
 Ein Koaxkabel besteht aus einem inneren Leiter, der durch ein Dielektrikum von einem äußeren, zylinderförmigen Leiter getrennt ist.
 Der äußere Leiter dient als Erdelektrode und/oder zur Abschirmung äußerer Felder. Durch diesen Aufbau hat das Kabel sowohl eine
-Kapazität $C$, als auch eine Induktivität $I$, welche die Signalausbreitung maßgeblich beeinflussen \todo{+Formeln für C und I}.
+Kapazität $C$, als auch eine Induktivität $I$, welche die Signalausbreitung maßgeblich beeinflussen. Diese lassen sich berechnen durch
+\begin{equation}
+  C = \epsilon_r \epsilon_0 l \frac{2\pi}{\ln\left(R_a/R_i\right)} \hspace*{1cm} L = \mu_r \mu_0 l \frac{\ln\left(R_a/R_i\right)}{2\pi}
+\end{equation}
 Hinzu kommen die charakteristischen Größen Verlustleitwert (\enquote{Ableitung}) $G$ und Widerstand $R$,
 welche den Verlustwiderstand parallel zur Kapazität bzw. in Reihe zur Induktivität beschreiben.
 All diese Größen wachsen linear mit der Länge des Kabels. Daher werden Längenunabhängige Größen eingeführt,
 bei denen ein Hochkomma an das Formelzeichen gesetzt wird, z.B. $R' = R/l$ mit der Leiterlänge $l$.
 
-Zur Veranschaulichung kann das Kabel als Reihenschaltung vieler kleiner RC-Glieder betrachtet werden (Abb. \ref{fig:rc-element}).
+Zur Veranschaulichung kann das Kabel als Reihenschaltung vieler kleiner LC-Glieder betrachtet werden (Abb. \ref{fig:lc-element}).
 Durch die nichtverschwindende Ladezeit des Kondensators ist der Wert der Ausgangsspannung $U_\text{out}$ verzögert zur
 Eingangsspannung $U_\text{in}$. Diese Verzögerung addiert sich auf und führt zu einer endlichen Ausbreitungsgeschwindigkeit des
 Signals im Kabel.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.3\textwidth]{RC_element}
-  \caption{RC-Glied als elementarer Baustein des Koaxkabels}
-  \label{fig:rc-element}
+  \includegraphics[width=0.3\textwidth]{LC_element}
+  \caption{LC-Glied als elementarer Baustein des Koaxkabels}
+  \label{fig:lc-element}
 \end{figure}
 
 Zur vollständigen mathematischen Beschreibung müssen außerdem Widerstand und Verlustleitwert beachtet werden.
@@ -136,9 +139,9 @@ $R_\mr A$, mit dem das Kabelende ($x = l$) belastet wird. Es gilt für den \text
 \begin{equation}
   r = \frac{R_\mr A - Z}{R_\mr A + Z}
 \end{equation}
-Für $R_A = Z$ \question{ist RA dann komplex?} ist also $r = 0$, die gesamte Energie der einlaufenden Welle wird über $R_\mr A$ umgesetzt
+Für $R_A = Z$ \question{ist RA dann komplex?} ist $r = 0$. In einem solchen Fall wird die gesamte Energie der einlaufenden Welle wird über $R_\mr A$ umgesetzt
 und es gibt keine reflektierte Welle. Dieser Zustand wird als \textit{Leitungsanpassung} bezeichnet. Im Leerlauf ($R_\mr A = \infty$)
-ist $r=1$ und im Kurzschluss ($R_\mr A = 0$) $r=-1$
+ist $r=1$ und im Kurzschluss ($R_\mr A = 0$) $r=-1$.
 
 Für die Phasen- bzw. Gruppengeschwindigkeit der einlaufenden Welle ergibt sich
 \begin{equation}
@@ -159,7 +162,7 @@ oder ein Dielektrikum mit größerem $\epsilon_r$ bzw. $\mu_r$ wählen.
 
 \subsection{}
 Da $Z=\sqrt\frac{L'}{C'}$ hat eine Verlängerung des Kabels keinen Einfluss auf den Wellenwiderstand.
-Erhöhung von $\mu_r$ bzw. $L'$ erhöht den Wellenwiderstand, erhöhung von $\epsilon_r$ bzw. $C'$ verringert ihn.
+Eine Erhöhung von $\mu_r$ bzw. $L'$ erhöht den Wellenwiderstand, eine Erhöhung von $\epsilon_r$ bzw. $C'$ verringert ihn.
 
 \subsection{}
 Die Leitung ist reflektionsfrei abgeschlossen und wirkt dadurch für die Signalquelle wie ein unendlich langes Kabel
@@ -168,7 +171,7 @@ mit Widerstand $Z$. Der Eingangswiderstand ist also unabhängig von der Länge. 
 \subsection{}
 Ein Leiter mit $\frac{R_\mr a}{R_\mr i} = 2.3$ und $\epsilon_r = \mu_r = 1.5$ hat eine Phasengeschwindigkeit von
 $v_\mr{ph} = \frac{c_0}{\sqrt{\epsilon_r \mu_r}} = \frac{c_0}{1.5} = \SI{2e8}{\m\per\s}$. Im verlustfreien Idealfall gilt
-für den Wellenwiderstand $Z=\frac{L'}{C'} = \sqrt{\frac{\mu_r \mu_0}{\epsilon_r \epsilon_0}} \frac{\ln(R_\mr a / R_\mr i)}{2\pi} = 120\pi \unit{\ohm} \frac{\ln{2.3}}{2\pi} \approx 49.97\unit{\ohm}$.
+für den Wellenwiderstand $Z=\sqrt{\frac{L'}{C'}} = \sqrt{\frac{\mu_r \mu_0}{\epsilon_r \epsilon_0}} \frac{\ln(R_\mr a / R_\mr i)}{2\pi} = 120\pi \unit{\ohm} \frac{\ln{2.3}}{2\pi} \approx 49.97\unit{\ohm}$.
 Die Verzögerungszeit pro Länge ist $\frac{t_\mr{delay}}{l} = 1/v_\mr{ph} = \SI{5}{\ns \per \m}$.
 
 \endgroup
