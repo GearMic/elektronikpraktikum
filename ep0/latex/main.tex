@@ -22,9 +22,10 @@
 %\usepackage[ISO]{diffcoeff}
 \usepackage{xcolor}
 \usepackage{csquotes} % e.g. provides \enquote
-\usepackage{siunitx} % units
+\usepackage[separate-uncertainty=true]{siunitx} % units
 \usepackage{xcolor} % colored text
 %\fancyhf[]{}
+\usepackage{csvsimple}
 
 
 %% custom stuff
@@ -52,7 +53,7 @@
   {\par\medskip\noindent\minipage{\linewidth}}
   {\endminipage\par\medskip}
 \newcommand*{\inputPath}{./plot} % prepend this command to the argument of all input commands
-\graphicspath{ {./figure/} }
+\graphicspath{ {./images/} }
 
 % own commands
 % \newcommand{\rarr}{$\to\,$} %A$\,\to\,$B
@@ -61,6 +62,7 @@
 \newcommand{\redq}{\color{red}(?)\color{\defc}}
 \newcommand{\question}[1]{\colorT[purple]{(#1)}}
 \newcommand{\todo}[1]{\colorT[red]{\textbf{(#1)}}}
+\newcommand{\mr}{\mathrm}
 
 
 %% preparation
@@ -188,22 +190,82 @@ Wir leiten (\ref{eq:bdeltat}) her. Für die exponentiell auf Spannung $U_0$ anst
   \implies B \Delta t &= \frac{1}{2\pi\tau} \cdot \tau \cdot \ln(9) \approx 0.35
 \end{align*}
 
+\endgroup
+
+\section{Durchführung \& Auswertung}
+\begingroup
+\subsectionalph
+
+\subsection{}
+Um den Signalgenerator und das Oszilloskop kennenzulernen, verbinden wir diese mit einem Koaxialkabel (BNC-Kabel)
+und erzeugen mit dem Generator verschiedene Signale, die wir dann mit dem Oszi beobachten.
+
+\subsection{}
+Zur Messung der insgesamten Anstiegszeit erzeugen wir ein Rechtecksignal mit einer Frequenz von $\SI{2}{\mega\hertz}$ und $\SI{20}{\Vpp}$. Wir nutzen das Oszi um die $10\%$ und $90\%$ des Signalmaximums zu ermitteln und speichern das Bild mit diesen Hilfslinien (Abb. \ref{fig:anstiegszeit}).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{b2}
+    \caption{Oszillogramm des \SI{2}{\MHz}-Rechtecksignals.}
+    \label{fig:anstiegszeit}
+\end{figure}
+
+Daraus lässt sich die Anstiegszeit $\Delta t_\text{gemessen}$ ablesen.
+Die $10\%$-Linie wird bei $t_{10}=\SI{-13\pm1}{\ns}$ und die $90\%$-Linie bei $t_{90}=\SI{-1\pm1}{\ns}$ erreicht. Damit ergibt sich
+\begin{equation}
+    \Delta t_\mr{gemessen} = t_{90}-t_{10} = \SI{12\pm1.41}{\ns}
+\end{equation}
+Die tatsächliche Anstiegszeit des Signals $\Delta t_\text{Signal}$ erhalten wir dann über $\Delta t_\text{Oszi}$, was sich aus der Bandbreite des Oszilloskops $B_\text{Oszi} = \SI{70}{\mega\hertz}$ ergibt
+\begin{equation}
+    \Delta t_\text{Ozsi} = \frac{0.35}{B_\text{Oszi}} = \frac{0.35}{\SI{70}{\mega\hertz}} = \SI{5}{\ns}
+\end{equation}
+aus (\ref{eq:anstiegszeit-eff}) folgt
+\begin{align}
+    \Delta t_\mr{Signal} &= \sqrt{\Delta t_\mr{gemessen}^2 - \Delta t_\mr{Oszi}^2} \\
+    \Delta(\Delta t_\mr{Signal}) &= \frac{1}{2} (\Delta t_\mr{gemessen}^2 - \Delta t_\mr{Oszi}^2)^{-\frac{1}{2}} \cdot 2 \Delta t_\mr{gemessen} \Delta(\Delta t_\mr{gemessen}) \nonumber \\
+    &= \frac{\Delta t_\mr{gemessen}}{\Delta t_\mr{Signal}} \cdot \Delta(\Delta t_\mr{gemessen})
+\end{align}
+und wir erhalten $\Delta t_\mr{Signal} = \SI{10.91\pm1.56}{\ns}$.
+
+Damit lässt sich auch die Bandbreite des Signalgenerators $B_\text{Signal}$ ermitteln:
+\begin{align}
+    B_\text{Signal} &= \frac{0.35}{\Delta t_\text{Signal}} \\
+    \Delta B_\text{Signal} &= \frac{0.35}{(\Delta t_\text{Signal})^2}\cdot \Delta(\Delta t_\text{Signal})
+\end{align}
+Es ergibt sich $B_\mr{Signal} = \SI{32.08 \pm 4.59}{\MHz}$.
+
+
+\subsection{}
+Anschließend schalten wir einen RC-Filter ($R=\SI{390}{\ohm}$, $C=\SI{0.1}{\micro\farad}$) zwischen den Ausgang des Signalgenerators und den Eingang des Oszilloskops.
+Für verschiedene Frequenzen eines $U_0 = \SI{20}{\Vpp}$-Sinussignals messen wir die über dem
+Kondensator abgegriffene resultierende Amplitude $U$, um die Dämpfung durch den Filter zu bestimmen (Abb. \ref{fig:bode}).
+
+Die Grenzfrequenz ist die Frequenz, bei der $\frac{U}{U_0}=\frac{1}{\sqrt{2}}$ ist, also die Dämpfung $20\log(\frac{1}{\sqrt{2}}) \approx -3 \unit{\dB}$ ist. Der Schnittpunkt mit dieser Linie liegt bei $f_\mr{Grenz} = \SI{3650 \pm 50}{\Hz}$
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{c}
+    \caption{Bode Diagramm des RC-Tiefpassfilters. $f$ ist die Frequenz des Signals und $U$ die Amplitude der Ausgangsspannung. Werte siehe Tab.\ref{tab:bode}.}
+    \label{fig:bode}
+\end{figure}
+
+\begin{table}[]
+    \centering
+    \csvreader[
+        head to column names,
+        tabular=|c|c|,
+        table head=\hline \textbf{f/Hz} & \textbf{U\_pp/V} \\ \hline,
+        late after line=\\\hline
+    ]{data/c.csv}{}
+    {\csname f/Hz\endcsname & \csname U_pp/V\endcsname}
+    \caption{}
+    \label{tab:bode}
+\end{table}
+
+
+%(in \unit{\decibel}) gegen die Frequenz aufzutragen.
 
 \endgroup
-\section{Durchführung}
-Um den Signalgenerator und das Oszilloskop kennenzulernen,verbinden wir diese mit einem Koaxialkabel (BNC-Kabel)
-und erzeugen mit dem Generator verschiedene Signale, die wir dann mit dem Oszi beobachten.
-Zur Messung der Anstiegszeit erzeugen wir ein Rechtecksignal mit einer Frequenz von $\SI{2}{\mega\hertz}$.
-
-Wir stellen eine Signalfrequenz von $\SI{2}{\mega\hertz}$ ein
-und lesen aus dem Oszillogramm die Anstiegszeit $\Delta t_\text{gemessen}$, d.h. die Zeit zwischen erreichen von $10\%$ und $90\%$
-des Maximalwerts, ab. Die tatsächliche Anstiegszeit $\Delta t_\text{Signal}$ erhalten wir dann über (\ref{eq:anstiegszeit-eff}),
-wobei $\Delta t_\text{Oszilloskop}$ aus der Bandbreite des Oszilloskops folgt, welche in dessen Bedienungsanleitung angegeben ist.
-
-Anschließend schalten wir einen RC-Filter zwischen den Ausgang des Signalgenerators und den Eingang des Oszilloskops. Für verschiedene
-Frequenzen messen wir die resultierende Amplitude eines Sinussignals um die Dämpfung durch den Filter (in \unit{\decibel})
-gegen die Frequenz aufzutragen.
-
 
 %\end{multicols}
 \end{document}
