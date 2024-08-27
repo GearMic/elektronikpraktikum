@@ -124,7 +124,7 @@ als Zeitdifferenz zwischen dem Erreichen von $10 \%$ und $ 90\%$ der Maximalspan
 
 \subsection{Oszilloskop}
 Das Oszilloskop ist ein wichtiges Instrument zur Messung periodischer Signale. Bei einem analogen Oszilloskop
-(wie dem im Versuch verwendeten HAMEG HM604)
+(wie dem früher im Praktikum verwendeten HAMEG HM604)
 besteht die Anzeige aus einer Elektronenstrahlröhre mit Leuchtschirm. Der Elektronenstrahl kann durch zwei Plattenkondensatoren,
 deren Felder in $x$- (horizontal) bzw. $y$-Richtung (vertikal) zeigen, gesteuert werden. Meist wird an die x-Platten
 eine zeitlich gleichförmig steigende Spannung, und an die y-Platten das darzustellende Signal angelegt. So entsteht als
@@ -137,6 +137,7 @@ gemacht werden, um die Periodizität von x- und y- Signal aneinander anzupasssen
 
 Das Oszilloskop hat eine Eingansimpedanz, die durch einen Widerstand von $1\mathrm{\Omega}$ in Parallelschaltung zu
 einer Kapazität von ca. $30\mathrm{pF}$ entsteht. Die Eingangsimpedanz kann häufig als unendlich genähert werden.
+
 Wie auch der Funktionsgenerator, hat das Oszilloskop ebenfalls eine endliche Bandbreite B. Bei Messung der Anstiegszeit
 wird somit ein höherer Wert gemessen, nach der Formel
 \begin{equation}
@@ -190,10 +191,10 @@ Wir leiten (\ref{eq:bdeltat}) her. Für die exponentiell auf Spannung $U_0$ anst
 \endgroup
 \section{Durchführung}
 Zur Messung der Anstiegszeit eines vom Signalgenerator produzierten Rechtecksignals,
-verbinden wir dessen Ausgang mit dem CH1-Kanaleingang des Oszilloskops. Wir verwenden ein Koaxialkabel (BNC-Kabel)
-und schließen dies reflexionsfrei ab \todo{Was bedeutet das?}. Wir stellen eine Signalfrequenz von $\SI{2}{\mega\hertz}$ ein
-und lesen aus dem Oszillogramm die Anstiegszeit $\Delta t_\text{gemessen}$, d.h. die Zeit zwischen erreichen von $10\%$ und $90\%$
-des Maximalwerts, ab. Die tatsächliche Anstiegszeit $\Delta t_\text{Signal}$ erhalten wir dann über (\ref{eq:anstiegszeit-eff}),
+verbinden wir dessen Ausgang mit dem CH1-Kanaleingang des Oszilloskops, wozu wir ein Koaxialkabel verwenden.
+Wir stellen eine Signalfrequenz von $\SI{2}{\mega\hertz}$ ein und lesen aus dem Oszillogramm die Anstiegszeit $\Delta t_\text{gemessen}$,
+d.h. die Zeit zwischen erreichen von $10\%$ und $90\%$ des Maximalwerts, ab.
+Die tatsächliche Anstiegszeit $\Delta t_\text{Signal}$ erhalten wir dann über (\ref{eq:anstiegszeit-eff}),
 wobei $\Delta t_\text{Oszilloskop}$ aus der Bandbreite des Oszilloskops folgt, welche in dessen Bedienungsanleitung angegeben ist.
 
 Anschließend schalten wir einen RC-Filter zwischen den Ausgang des Signalgenerators und den Eingang des Oszilloskops. Für verschiedene
