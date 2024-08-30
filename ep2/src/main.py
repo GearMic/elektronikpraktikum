@@ -1,8 +1,20 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.transforms as mtransforms
+from matplotlib.ticker import FixedLocator, FixedFormatter
 
-def plot_diode_data(inFile, outFile):
-    data = np.genfromtxt(inFile, delimiter=',')
+# x axis transformation
+xPositiveScale = 10
+def forward(x):
+    # Apply different scaling based on x-values
+    return np.piecewise(x, [x < 0, x >= 0], [lambda x: x, lambda x: x*xPositiveScale])
+
+def inverse(x):
+    # Apply the inverse scaling functions to match the forward transformation
+    return np.piecewise(x, [x < 0, x >= 0], [lambda x: x, lambda x: x/xPositiveScale])
+
+def plot_diode_data(inFile, outFile, title):
+    data = np.genfromtxt(inFile, delimiter=',', skip_header=1)
     U = data[:, 0]
     I = data[:, 1]
     U_err = data[:, 2]
@@ -14,11 +26,23 @@ def plot_diode_data(inFile, outFile):
 
     ax.set_xlabel(r'$U/$V')
     ax.set_ylabel(r'$I/$mA')
-    ax.minorticks_on()
-    ax.grid(True, which='both')
+    ax.set_title(title)
+    ax.grid(True, which='major')
+
+    # Set the custom transform for the y-axis
+    ax.set_xscale('function', functions=(forward, inverse))
+
+    ticks = np.concatenate((
+        np.arange(-15, 0, 2.5), np.arange(0, 2, 0.2)
+    ))
+    minorTicks = np.concatenate((
+        np.arange(-15, 0, 0.5), np.arange(0, 2, 0.1)
+    ))
+    ax.xaxis.set_major_locator(FixedLocator(ticks))
+    ax.xaxis.set_minor_locator(FixedLocator(minorTicks))
 
     fig.savefig(outFile)
     # TODO: different scaling below and above zero
 
-plot_diode_data('ep2/data/1_D1.csv', 'ep2/plot/1_D1.pdf')
-# plot_diode_data('ep2/data/1_d1.csv', 'ep2/plot/1_D1.pdf')
+plot_diode_data('ep2/data/1_D1.csv', 'ep2/plot/1_D1.pdf', 'Kennlinie D1')
+plot_diode_data('ep2/data/1_D2.csv', 'ep2/plot/1_D2.pdf', 'Kennlinie D2')
