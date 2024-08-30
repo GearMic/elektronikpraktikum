@@ -13,25 +13,11 @@ def inverse(x):
     # Apply the inverse scaling functions to match the forward transformation
     return np.piecewise(x, [x < 0, x >= 0], [lambda x: x, lambda x: x/xPositiveScale])
 
-def plot_diode_data(inFile, outFile, title):
-    data = np.genfromtxt(inFile, delimiter=',', skip_header=1)
-    U = data[:, 0]
-    I = data[:, 1]
-    U_err = data[:, 2]
-    I_err = data[:, 3]
-
-    fig, ax = plt.subplots()
-
-    ax.errorbar(U, I, I_err, U_err, color='xkcd:blue')
-
-    ax.set_xlabel(r'$U/$V')
-    ax.set_ylabel(r'$I/$mA')
-    ax.set_title(title)
-    ax.grid(True, which='major')
-
+def apply_x_transform(fig, ax):
     # Set the custom transform for the y-axis
     ax.set_xscale('function', functions=(forward, inverse))
 
+def set_xticks(fig, ax):
     ticks = np.concatenate((
         np.arange(-15, 0, 2.5), np.arange(0, 2, 0.2)
     ))
@@ -41,8 +27,30 @@ def plot_diode_data(inFile, outFile, title):
     ax.xaxis.set_major_locator(FixedLocator(ticks))
     ax.xaxis.set_minor_locator(FixedLocator(minorTicks))
 
-    fig.savefig(outFile)
+def plot_diode_data(fig, ax, inFile, outFile, title, color):
+    data = np.genfromtxt(inFile, delimiter=',', skip_header=1)
+    U = data[:, 0]
+    I = data[:, 1]
+    U_err = data[:, 2]
+    I_err = data[:, 3]
+
+    # fig, ax = plt.subplots()
+
+    ax.errorbar(U, I, I_err, U_err, color=color, label=title)
+
+    ax.set_xlabel(r'$U/$V')
+    ax.set_ylabel(r'$I/$mA')
+    # ax.set_title(title)
+    ax.grid(True, which='major')
+
     # TODO: different scaling below and above zero
 
-plot_diode_data('ep2/data/1_D1.csv', 'ep2/plot/1_D1.pdf', 'Kennlinie D1')
-plot_diode_data('ep2/data/1_D2.csv', 'ep2/plot/1_D2.pdf', 'Kennlinie D2')
+# plot_diode_data('ep2/data/1_D1.csv', 'ep2/plot/1_D1.pdf', 'Kennlinie D1')
+# plot_diode_data('ep2/data/1_D2.csv', 'ep2/plot/1_D2.pdf', 'Kennlinie D2')
+fig, ax = plt.subplots()
+plot_diode_data(fig, ax, 'ep2/data/1_D1.csv', '', 'Kennlinie D1', 'xkcd:blue')
+plot_diode_data(fig, ax, 'ep2/data/1_D2.csv', '', 'Kennlinie D2', 'xkcd:red')
+apply_x_transform(fig, ax)
+set_xticks(fig, ax)
+ax.legend(loc='upper left')
+fig.savefig('ep2/plot/1.pdf')
