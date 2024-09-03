@@ -36,7 +36,16 @@ def plot_diode_data(fig, ax, inFile, outFile, title, color):
 
     # fig, ax = plt.subplots()
 
-    ax.errorbar(U, I, I_err, U_err, color=color, label=title)
+    # ax.errorbar(
+    #     U, I, I_err, U_err, ecolor=color, label=title,
+    #     linestyle='--', linewidth=1, color='xkcd:gray'
+    # )
+
+    ax.errorbar(
+        U, I, I_err, U_err, ecolor=color, label=title,
+        linestyle='None', zorder=5
+    )
+    ax.plot(U, I, linestyle='--', lw=1, color='xkcd:gray')
 
     ax.set_xlabel(r'$U/$V')
     ax.set_ylabel(r'$I/$mA')
