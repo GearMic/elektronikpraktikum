@@ -1,0 +1,9 @@
+vor Rin
+f/Hz, R/kOhm, dUout/Vpp, dUin/Vpp
+1000, 100, 0.038, 0.013
+1000, 33, 0.042, 0.013
+
+hinter Rin
+f/Hz, R/kOhm, dUout/Vpp, dUin/Vpp
+1000, 100, 0.010, 0.062
+1000, 33, 0.010, 0.062
