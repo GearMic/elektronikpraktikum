@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-dateiname = "1a.csv"
+dateiname = "../data/1a.csv"
 data = pd.read_csv(dateiname)
 data.columns = data.columns.str.strip()
 
@@ -15,5 +15,5 @@ dv = np.round(np.sqrt((dU/U_B)*(dU/U_B)+((U_E*dU)/(U_B*U_B))*((U_E*dU)/(U_B*U_B)
 data["v"]=verstärkung
 data["dv"]=dv
 
-neuer_dateiname = "1a_auswertung.csv"
+neuer_dateiname = "../data/1a_auswertung.csv"
 data.to_csv(neuer_dateiname, index=False)
