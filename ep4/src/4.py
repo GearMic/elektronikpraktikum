@@ -32,16 +32,16 @@ def plot_data(data1, data2):
 
     color_transistor = "r"
     color_kaskode = "b"
-    line_transistor = 16.85
+    line_transistor = 16.8
     line_kaskode = 16.94
 
     fig, ax = plt.subplots()
-    ax.scatter(x_data1,y_data1,color=color_transistor,label="Emitterschaltung",marker="x")
-    ax.scatter(x_data2,y_data2,color=color_kaskode,label="Kaskodenschaltung",marker="x")
+    ax.scatter(x_data1,y_data1,color=color_transistor,label="Messwerte Emitterschaltung",marker="x")
+    ax.scatter(x_data2,y_data2,color=color_kaskode,label="Messwerte Kaskodenschaltung",marker="x")
 
-    # horizontale Linien
-    ax.axhline(y=line_transistor,color=color_transistor)
-    ax.axhline(y=line_kaskode,color=color_kaskode)
+    ### v_0 plotten:
+    ax.axhline(y=line_transistor,color=color_transistor, linewidth=1, label=r"$v_0$ Emitterschaltung")
+    ax.axhline(y=line_kaskode,color=color_kaskode, linewidth=1, label=r"$v_0$ Kaskodenschaltung")
     #ax.axhline(y=line_transistor-3,color=color_transistor,linestyle=":")
     #ax.axhline(y=line_kaskode-3,color=color_kaskode,linestyle=":")
 
@@ -87,12 +87,10 @@ def plot_data(data1, data2):
     ax.plot([x_min, x_max], [y_min, y_max], color_kaskode, linestyle=':', label='')
 
 
-
-
     ### Layout:
     ax.set_xlim(1,10)
-    ax.set_xlabel("log(f)")
-    ax.set_ylabel("20*log(v)")
+    ax.set_xlabel(r"$\log(f)$")
+    ax.set_ylabel(r"$20 log(v)$")
     ax.set_ylim(0,18)
     
     ax.grid(True, which="major", linestyle="-")
