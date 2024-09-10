@@ -1,4 +1,4 @@
-f/Hz, v, v_err #Problem: rauschen
+f/Hz, v, v_err
 10, 1.2, 0.1
 20, 1.76, 0.1
 30, 2.32, 0.1
