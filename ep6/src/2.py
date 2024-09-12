@@ -15,14 +15,15 @@ def plot_data(data, plotFile):
     ax.set_xscale('log')
     ax.xaxis.set_major_formatter(ScalarFormatter())
 
-    ax.errorbar(f, v, v_err, color='xkcd:blue')
+    ax.errorbar(f, v, v_err, color='xkcd:blue', linestyle="None", elinewidth=1.0, marker="x")
 
     ax.set_xlabel(r'$f/\mathrm{kHz}$')
     ax.set_ylabel(r'$|v|$')
     ax.grid(True, which='both')
+    plt.tight_layout()
     fig.savefig(plotFile)
     
 
-data = get_data_pd('ep6/data/2.csv')
-plot_data(data, 'ep6/plot/2.pdf')
+data = get_data_pd('../data/2.csv')
+plot_data(data, '../plot/2.pdf')
 
