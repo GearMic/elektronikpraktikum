@@ -1,5 +1,6 @@
 ## non-git folder
 aux/*
+auxil/*
 
 ## Core latex/pdflatex auxiliary files:
 ep*/latex/*.aux

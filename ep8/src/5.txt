@@ -1,0 +1,64 @@
+a)
+    MVI A,0
+
+F1: INR A
+    OUT 04
+
+    JMP F1
+
+
+d)
+MVI B,2
+
+F1: MOV C,B
+F2: DCR C
+    JZ F3
+
+
+    JMP F2
+
+F3: INR A
+    NOP
+
+    JMP F1
+
+
+e)
+# Dreieck:
+MVI B,1
+
+MVI E,0
+
+MVI A,0
+
+F1: MOV C,B
+F2: DCR C
+    JZ F3
+
+
+    JMP F2
+
+F3: CPI 0
+
+    JNZ F4
+    
+    
+    INR E
+    NOP
+    
+    JNZ F1
+    
+    
+    MVI A,1
+    
+    JMP F1
+    
+F4: DCR E
+    NOP
+    
+    JNZ F1
+    
+    
+    MVI A,0
+    
+    JMP F1
