@@ -1,0 +1,19 @@
+00 &     & MVI A,0 & 3E
+01 &     &         & 00
+02 &     & MVI B,0 & 06
+03 &     &         & 00
+04 &     & MOV L,A & 6F
+05 &     & MOV E,A & 5F
+06 &     & MOV C,B & 48
+07 &     & DCR C   & 0D
+08 & F1: & DAD D   & 19
+09 &     & DCR C   & 0D
+0A &     & JNZ F1  & C2
+0B &     &         & 08
+0C &     &         & 00
+0D &     & MOV A,H & 7C
+0E &     & OUT 00  & D3
+0F &     &         & 00
+10 &     & MOV A,L & 7D
+11 &     &         & 01
+12 &     & OUT 01  & D3

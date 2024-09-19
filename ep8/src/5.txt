@@ -62,3 +62,23 @@ F4: DCR E
     MVI A,0
     
     JMP F1
+
+
+g)
+    MVI A,0
+
+    MVI B,0
+
+    MOV L,A
+    MOV E,A
+    MOV C,B
+    DCR C
+F1: DAD D
+    DCR C
+    JNZ F1
+
+
+    MOV A,H
+    OUT 00
+    MOV A,L
+    OUT 01
