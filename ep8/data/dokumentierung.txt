@@ -1,0 +1,20 @@
+1)
+- A: Zahl eingeben
+- B: Zahl eingeben
+- C: Steuerwort eingeben
+- Ergebnis bewundern
+
+2)
+- A: Zahl eingeben
+- B: Zahl eingeben
+- C: Funktion eingeben
+- Ergebnis bewundern
+
+3)
+- B: Zahl eingeben (B: 1011 0001)
+- C: Lade B in A (C: 0011)
+- Clock drücken
+- B: Zahl eingeben (B: 0001 1000)
+- C: Subtrahiere B von A (C: 1000)
+- Clock drücken
+- Ergebnis bewundern
